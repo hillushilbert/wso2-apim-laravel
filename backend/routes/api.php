@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::apiResource('treinamento',TreinamentoController::class);
 Route::get('treinamento/listar', [TreinamentoController::class, 'index'])->name('treinamento.index');
+Route::post('treinamento/criar', [TreinamentoController::class, 'store'])->name('treinamento.store');
+Route::delete('treinamento/deletar/{id}', [TreinamentoController::class, 'destroy'])->name('treinamento.delete');

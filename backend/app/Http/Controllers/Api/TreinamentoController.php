@@ -39,18 +39,13 @@ class TreinamentoController extends Controller
         try
 		{
 			$this->validate($request, [
-                'name'       => 'required|max:255',
+                'nome'       => 'required|max:255',
             ]);
 
             
-            $find = $request->only(['name']);
-            $tag = Treinamento::firstOrNew($find);
-
-            $requestData = $request->only(['name']);
+            $requestData = $request->only(['nome','descricao']);
             
-            $tag->fill($requestData);
-            $tag->save();
-
+            $tag = Treinamento::create($requestData);
             
             return response()->json(['data'=>$tag], 201);
 		}
@@ -141,9 +136,6 @@ class TreinamentoController extends Controller
 		{
             DB::beginTransaction();
             
-            $tag = Treinamento::findOrFail($id);
-
-            $tag->studies()->detach();
             Treinamento::destroy($id);
 
             DB::commit();
